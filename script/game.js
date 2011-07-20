@@ -42,9 +42,9 @@ $(document).ready(function() {
     setInterval(draw, 10);
     window.addEventListener('keydown', moveAbbath, true);
     
-    song = new Audio('sounds/Immortal-OneByOne.mp3'); 
-    crowd = new Audio('sounds/crowd.mp3');
-    //song = new Audio('sounds/test.mp3');
+    song = new Audio('sounds/one_by_one.ogg'); 
+    crowd = new Audio('sounds/crowd.ogg');
+    
     song.play();
     
     song.addEventListener('ended', function() {
@@ -119,7 +119,6 @@ function speakers() {
 function abbath() {
     if (abb_img.src.endsWith(ABBATH_GUITAR_HORN)) {
         posterColorInvert();
-        crowd.play();
     }
     ctx.drawImage(abb_img, abb_x , abb_y);
 }
@@ -127,12 +126,10 @@ function abbath() {
 function drummer() {
     if (playing === true) {
         if (drm_img.src.endsWith(DRUMMER_1)) {
-        drm_img.src = DRUMMER_2;
+            drm_img.src = DRUMMER_2;
         } else {
             drm_img.src = DRUMMER_1;
         }
-    } else {
-        drm_img.src = DRUMMER_1;
     }
     ctx.drawImage(drm_img, canvas.width / 2 + 125, canvas.height - 89);
 }
@@ -159,6 +156,7 @@ function moveAbbath(event) {
     switch (event.keyCode) {
         case 38:  /* Up arrow was pressed */
             abb_img.src = ABBATH_GUITAR_HORN;
+            crowd.play();
             break;
         case 40:  /* Down arrow was pressed */
             if (abb_img.src.endsWith(ABBATH_GUITAR)) {
