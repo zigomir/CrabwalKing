@@ -1,6 +1,8 @@
 ﻿var canvas;
 var ctx;
-var crowd;
+
+var song  = new Audio('../sounds/one_by_one.ogg');
+var crowd = new Audio('../sounds/crowd.ogg');
 
 // abbath
 var abb_img = new Image();
@@ -14,8 +16,8 @@ var drm_img = new Image();
 
 // stage elements
 var imm_img = new Image();
-var s_speaker_width = 100;
-var s_speaker_height = 200;
+var sSpeakerWidth = 100;
+var sSpeakerHeight = 200;
 
 var playing = false;
 // assets
@@ -27,9 +29,9 @@ var ABBATH_GUITAR_SLAM = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAx
 var DRUMMER_1 = 'data:image/png;base64,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%3D';
 var DRUMMER_2 = 'data:image/png;base64,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%3D%3D';
 
-$(document).ready(function() {
-    canvas = document.getElementById("canvas");
-    ctx = canvas.getContext("2d");
+$(function() {
+    canvas = $('#canvas').get(0);
+    ctx = canvas.getContext('2d');
     
     abb_img.src = ABBATH_GUITAR;
     drm_img.src = DRUMMER_1;
@@ -41,10 +43,7 @@ $(document).ready(function() {
     
     setInterval(draw, 10);
     window.addEventListener('keydown', moveAbbath, true);
-    
-    song = new Audio('sounds/one_by_one.ogg'); 
-    crowd = new Audio('sounds/crowd.ogg');
-    
+
     song.play();
     
     song.addEventListener('ended', function() {
@@ -56,7 +55,6 @@ $(document).ready(function() {
     song.addEventListener('playing', function() {
         playing = true;
     }, false);
-    
 });
 
 function draw() {
@@ -75,7 +73,7 @@ function stage() {
     ctx.fillStyle = "rgb(0,0,0)";
     ctx.fillRect(0, canvas.height - 10, canvas.width, 10);
     
-    // drumer statge
+    // drummer stage
     ctx.fillRect(canvas.width / 2 + 100, canvas.height - 40, 100, 10);
     ctx.fillRect(canvas.width / 2 + 100, canvas.height - 30, 10, 20);
     ctx.fillRect(canvas.width / 2 + 190, canvas.height - 30, 10, 20);
@@ -87,32 +85,32 @@ function speakers() {
         speakerSize = Math.round(Math.random() * 40);
     }
     
-    ctx.strokeStyle = "rgb(255,255,255)";
+    ctx.strokeStyle = 'rgb(255,255,255)';
     ctx.lineWidth = 3;
     
     // left speaker
-    ctx.fillRect(0, canvas.height - s_speaker_height, s_speaker_width, s_speaker_height);
+    ctx.fillRect(0, canvas.height - sSpeakerHeight, sSpeakerWidth, sSpeakerHeight);
     // speaker circle
     ctx.beginPath();
-    ctx.arc(s_speaker_width / 2, 
-            canvas.height - s_speaker_height / 2, 
+    ctx.arc(sSpeakerWidth / 2,
+            canvas.height - sSpeakerHeight / 2,
             speakerSize, 
             0, 
             Math.PI*2, true);
     ctx.stroke();
 
     // right speaker
-    ctx.fillRect(canvas.width - s_speaker_width, canvas.height - s_speaker_height, 
-                 s_speaker_width, 
-                 s_speaker_height);
+    ctx.fillRect(canvas.width - sSpeakerWidth, canvas.height - sSpeakerHeight,
+                 sSpeakerWidth,
+                 sSpeakerHeight);
     // speaker circle
     ctx.beginPath();
-    ctx.arc(s_speaker_width / 2 + canvas.width - s_speaker_width, 
-            canvas.height - s_speaker_height / 2, 
+    ctx.arc(sSpeakerWidth / 2 + canvas.width - sSpeakerWidth,
+            canvas.height - sSpeakerHeight / 2,
             speakerSize, 
             0, 
             Math.PI*2, true);
-    ctx.strokeStyle = "rgb(255,255,255)";
+    ctx.strokeStyle = 'rgb(255,255,255)';
     ctx.stroke();
 }
 
@@ -153,6 +151,7 @@ function posterColorInvert() {
 function moveAbbath(event) {
     var dx = 5;
     var dy = 5;
+
     switch (event.keyCode) {
         case 38:  /* Up arrow was pressed */
             abb_img.src = ABBATH_GUITAR_HORN;
@@ -166,17 +165,19 @@ function moveAbbath(event) {
             }
             break;
         case 37:  /* Left arrow was pressed */
-            if (abb_x - dx - s_speaker_width > 0) {
+            if (abb_x - dx - sSpeakerWidth > 0) {
                 abb_x -= dx;
                 walk();
             }
             break;
         case 39:  /* Right arrow was pressed */
-            if (abb_x + dx < canvas.width - 50 - s_speaker_width) {
+            if (abb_x + dx < canvas.width - 50 - sSpeakerWidth) {
                 abb_x += dx;
                 walk();
             }
             break;
+//        case 32: // space
+//            song.pause();
     }
 }
 
