@@ -1,0 +1,2 @@
+- Need to port Audio to Web Audio API http://www.html5rocks.com/en/tutorials/webaudio/intro/
+- https://github.com/dfcb/BigVideo.js for background video http://www.youtube.com/watch?v=sOOebk_dKFo
