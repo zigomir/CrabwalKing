@@ -68,6 +68,7 @@ var speakers = function() {
     ctx.fillRect(canvas.width - sSpeakerWidth, canvas.height - sSpeakerHeight,
                  sSpeakerWidth,
                  sSpeakerHeight);
+
     // speaker circle
     ctx.beginPath();
     ctx.arc(sSpeakerWidth / 2 + canvas.width - sSpeakerWidth,
@@ -82,7 +83,7 @@ var speakers = function() {
 var drawDrummer = function() {
     'use strict';
 
-    if (playing === true) {
+    if (playing) {
         if (drummer.src.endsWith(DRUMMER_1)) {
             drummer.src = DRUMMER_2;
         } else {

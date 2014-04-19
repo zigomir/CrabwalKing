@@ -27,3 +27,13 @@ body {
     color: #000;
     padding: 0.2em 0;
 }
+
+.wrapper {
+  width: 640px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.wrapper p {
+  text-align: center;
+}
