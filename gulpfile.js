@@ -25,7 +25,7 @@ gulp.task('html', function () {
 
 // Images
 gulp.task('images', function () {
-    return gulp.src('app/images/**/*')
+    return gulp.src(['app/images/**/*.jpg', 'app/images/**/*.png'])
         .pipe($.cache($.imagemin({
             optimizationLevel: 3,
             progressive: true,
@@ -33,6 +33,12 @@ gulp.task('images', function () {
         })))
         .pipe(gulp.dest('dist/images'))
         .pipe($.size());
+});
+
+// Sounds
+gulp.task('sounds', function () {
+    return gulp.src('app/sounds/**/*')
+        .pipe(gulp.dest('dist/sounds'));
 });
 
 // Clean
@@ -44,7 +50,7 @@ gulp.task('clean', function () {
 gulp.task('bundle', ['scripts'], $.bundle('./app/*.html'));
 
 // Build
-gulp.task('build', ['html', 'bundle', 'images']);
+gulp.task('build', ['html', 'bundle', 'images', 'sounds']);
 
 // Default task
 gulp.task('default', ['clean'], function () {
@@ -54,7 +60,7 @@ gulp.task('default', ['clean'], function () {
 // Connect
 gulp.task('connect', $.connect.server({
     root: ['app'],
-    port: 9000,
+    port: 3000,
     livereload: true
 }));
 
