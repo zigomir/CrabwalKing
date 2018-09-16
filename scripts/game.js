@@ -1,6 +1,5 @@
-﻿var canvas
-var ctx
-
+﻿var canvas = document.getElementById('canvas')
+var ctx = canvas.getContext('2d')
 var song = new Audio('../sounds/one_by_one.ogg')
 var crowd = new Audio('../sounds/crowd.ogg')
 
@@ -165,9 +164,6 @@ var draw = function() {
   drawAbbath()
   drawDrummer()
 }
-
-canvas = document.getElementById('canvas')
-ctx = canvas.getContext('2d')
 
 abbath.img.src = ABBATH_GUITAR
 drummer.src = DRUMMER_1
