@@ -159,6 +159,7 @@ var draw = function() {
   speakers()
   drawAbbath()
   drawDrummer()
+  window.requestAnimationFrame(draw)
 }
 
 abbath.img.src = ABBATH_GUITAR
@@ -169,7 +170,7 @@ poster.src = IMMORTAL
 abbath.x = canvas.width / 2 - abbath.width / 2
 abbath.y = canvas.height - abbath.height - 9 // because 10px ground
 
-setInterval(draw, 10)
+window.requestAnimationFrame(draw)
 window.addEventListener('keydown', moveAbbath, true)
 
 song.addEventListener(
